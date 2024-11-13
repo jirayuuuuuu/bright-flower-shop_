@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo"> 
+            <!--<img src="" alt="LOGO" widht="50"-->
+            <img src="image/LOGO.png" alt="LOGO">
+        </div>
+    
+        <div class="menu">
+            <a href="index.html">Home</a>
+            <a href="product.html">product</a>
+            <a href="cart.html">🛒</a>
+            <a href="contact.html">ช่องติดต่อทางร้าน</a>
+            
+        </div>
+    </nav>
+    <!DOCTYPE html>
+    <html lang="th">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>ตะกร้าสินค้า</title>
+    </head>
+    <body>
+    
+        <div class="cart-container">
+            <h1>ตะกร้าสินค้า</h1>
+            <div id="cart-items"></div>
+            <button class="checkout-btn">ชำระเงิน</button>
+          </div>
+        
+          <script>
+            // ฟังก์ชันแสดงสินค้าจากตะกร้า
+            window.onload = function() {
+              const cart = JSON.parse(localStorage.getItem('cart')) || [];
+              const cartItemsContainer = document.getElementById('cart-items');
+              
+              if (cart.length === 0) {
+                cartItemsContainer.innerHTML = "<p>ไม่มีสินค้าภายในตะกร้า</p>";
+                return;
+              }
+        
+              cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+                itemElement.innerHTML = `
+                  <img src="${item.image}" alt="${item.name}">
+                  <div class="details">
+                    <p><strong>${item.name}</strong></p>
+                    <p>฿${item.price}</p>
+                  </div>
+                  <div class="remove" onclick="removeItem(${item.id})">ลบ</div>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+              });
+            };
+        
+            // ฟังก์ชันลบสินค้าออกจากตะกร้า
+            function removeItem(itemId) {
+              let cart = JSON.parse(localStorage.getItem('cart')) || [];
+              cart = cart.filter(item => item.id !== itemId);
+              localStorage.setItem('cart', JSON.stringify(cart));
+              location.reload(); // รีเฟรชหน้าเพื่ออัพเดทตะกร้า
+            }
+          </script>
+
+<!-- 00 -->
+<div class="cart-container" id="cart-items">
+    <!-- ตะกร้าสินค้า -->
+  </div>
+
+  <script>
+    window.onload = function() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = "<p>ไม่มีสินค้าภายในตะกร้า</p>";
+        return;
+      }
+
+      // แสดงรายการสินค้าในตะกร้า
+      cart.forEach(item => {
+        if (item && item.name && item.price && item.image) {
+          const itemElement = document.createElement('div');
+          itemElement.classList.add('cart-item');
+          itemElement.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div class="details">
+              <p><strong>${item.name}</strong></p>
+              <p>฿${item.price}</p>
+            </div>
+            <div class="remove" onclick="removeItem(${item.id})">ลบ</div>
+          `;
+          cartItemsContainer.appendChild(itemElement);
+        }
+      });
+    };
+
+    // ฟังก์ชันลบสินค้าออกจากตะกร้า
+    function removeItem(itemId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== itemId);  // ลบสินค้าที่ id ตรง
+      localStorage.setItem('cart', JSON.stringify(cart));  // อัพเดทตะกร้าใน localStorage
+      location.reload(); // รีเฟรชหน้าเพื่อแสดงข้อมูลล่าสุด
+    }
+  </script>
+    </body>
+    </html>
+    
+    
+        <footer>
+            &copy; jirayu
+        </footer>
+</body>
+</html>
